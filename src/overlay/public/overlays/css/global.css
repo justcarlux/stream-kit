@@ -1,0 +1,74 @@
+/* Main */
+
+body {
+    margin: 0;
+}
+
+div, span {
+    font-family: 'Nunito';
+    color: #fff;
+    font-size: 23px;
+    text-shadow: 0px 0px 10px #000000cc;
+}
+
+#fout-helper {
+    position: absolute;
+    top: -200%;
+}
+
+/* Top area with current Spotify song and Twitch followers */
+
+#top-info section, #bottom-info section {
+    padding: 20px;
+}
+
+#top-info section:last-child {
+    padding-top: 0;
+}
+
+#spotify-song, #twitch-followers {
+    display: flex;
+    align-items: center;
+}
+
+#spotify-song img, #twitch-followers img {
+    width: 40px;
+    filter: drop-shadow(0px 0px 10px #000000cc);
+}
+
+#spotify-song #name, #twitch-followers #count {
+    margin-left: 10px;
+}
+
+#spotify-song, #twitch-followers {
+    opacity: 0;
+}
+
+
+/* JS Helpers */
+
+.show {
+    animation: ShowAnimation .3s ease forwards;
+}
+
+@keyframes ShowAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.hide {
+    animation: HideAnimation .3s ease forwards;
+}
+
+@keyframes HideAnimation {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

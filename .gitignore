@@ -1,0 +1,8 @@
+config.json
+dist
+output.log
+node_modules
+NowPlaying/bin
+NowPlaying/.vs
+NowPlaying/obj
+NowPlaying/.editorconfig

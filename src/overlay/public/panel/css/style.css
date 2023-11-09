@@ -1,0 +1,70 @@
+body {
+    padding: 20px;
+    background-color: #040D12;
+    opacity: 0;
+}
+
+div, span, h1, h2, h3, h4, h5, h6, label {
+    color: #fff;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+#console-output #content {
+    cursor: text;
+    border: 2px solid #ffffff;
+    font-family: monospace;
+    font-size: 14pt;
+    padding: 10px;
+    height: 60vh;
+    white-space: pre-wrap;
+    overflow: auto;
+}
+
+form .field {
+    margin: 10px 0;
+}
+
+input[type="number"], input[type="text"] {
+    background-color: #040D12;
+    outline: none;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+button, input[type="submit"], .button {
+    display: inline-block;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    padding: 2px 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000000;
+}
+
+button:hover, input[type="submit"]:hover, .open-button:hover {
+    background-color: #dedede;
+}
+
+.overlay {
+    margin: 10px 0;
+    background-color: #081c27;
+    padding: 10px;
+}
+
+.overlay input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+a:visited {
+    color: #000000;
+}
+
+.copy-link-button {
+    margin-left: 3px;
+}
