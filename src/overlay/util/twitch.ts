@@ -1,6 +1,6 @@
 import { TwitchCredentialsHolder } from "../structures/TwitchCredentialsHolder";
-import * as logger from "../util/logger";
-import * as config from "./config";
+import * as logger from "../../util/logger";
+import * as config from "../../util/config";
 import querystring from "node:querystring";
 import { RefreshingAuthProvider, exchangeCode } from '@twurple/auth';
 import { ApiClient, HelixUser } from "@twurple/api";
@@ -8,7 +8,7 @@ import { io } from "../app";
 import { EventSubWsListener } from "@twurple/eventsub-ws";
 import { spawn } from "node:child_process";
 
-const credentials = new TwitchCredentialsHolder();
+export const credentials = new TwitchCredentialsHolder();
 const oAuthBaseURL = "https://id.twitch.tv/oauth2";
 
 export function generateOAuthURL(scopes: string[], state: string) {
@@ -72,14 +72,14 @@ export async function refresh(interval?: boolean) {
 export async function requestLogin() {
     const url = `http://localhost:${config.get("port")}/twitch/login`;
     const draft = logger.run(
-        `Log-in to Twitch: ${url}`,
+        `(1/2) Log-in to Twitch: ${url}`,
         { color: "yellow" }, true
     )
     spawn(`start ${url}`, { shell: true, windowsHide: true });
     return await new Promise<void>(resolve => {
         credentials.once("provided", () => {
             logger.run(
-                `Log-in to Twitch: Success -> Account: ${credentials.user.name}`,
+                `(1/2) Log-in to Twitch: Success -> Account: ${credentials.user.name}`,
                 { logFunction: draft, color: "green" }
             )
             resolve();

@@ -4,11 +4,12 @@ import express from "express";
 import http from "node:http";
 import path from "node:path";
 import { Server } from "socket.io";
-import * as config from "./util/config";
+import * as config from "../util/config";
 import exceptionCatchers from "./util/exception-catchers";
 import * as spotify from "./util/spotify";
 import * as twitch from "./util/twitch";
-import * as logger from "./util/logger";
+import * as tiktok from "./util/tiktok";
+import * as logger from "../util/logger";
 import { getPrivateAddress } from "./util/get-private-address";
 
 export const app = express()
@@ -43,6 +44,7 @@ export async function initialize() {
     exceptionCatchers();
     await spotify.initializeListener();
     await twitch.requestLogin();
+    // await tiktok.requestLogin();
     twitch.initializeInterval();
     app.set("logged-in", true);
     

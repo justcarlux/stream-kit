@@ -1,4 +1,4 @@
-import * as logger from "../util/logger";
+import * as logger from "../../util/logger";
 
 export default () => {
 

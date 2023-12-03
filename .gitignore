@@ -6,3 +6,5 @@ NowPlaying/bin
 NowPlaying/.vs
 NowPlaying/obj
 NowPlaying/.editorconfig
+unused
+bot-commands.json

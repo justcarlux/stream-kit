@@ -20,6 +20,9 @@ router.use("/api", apiRoutes);
 import twitchRoutes from "./twitch.routes";
 router.use("/twitch", twitchRoutes);
 
+import tiktokRoutes from "./tiktok.routes";
+router.use("/tiktok", tiktokRoutes);
+
 router.use("/css", express.static(
     path.join(app.get("public"), "css")
 ));

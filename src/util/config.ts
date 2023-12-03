@@ -1,11 +1,15 @@
 import { readFileSync, writeFileSync } from "fs";
 import path from "node:path";
-import * as logger from "../util/logger";
+import * as logger from "./logger";
 
 export interface IConfiguration {
     port?: number,
     twitchClientId?: string,
     twitchClientSecret?: string,
+    twitchBotUsername?: string,
+    twitchBotAccessToken?: string,
+    tiktokClientKey?: string,
+    tiktokClientSecret?: string,
     twitchInterval?: number,
     nowPlayingBinary?: string
 }
@@ -14,6 +18,10 @@ const required: (keyof IConfiguration)[] = [
     "port",
     "twitchClientId",
     "twitchClientSecret",
+    "twitchBotUsername",
+    "twitchBotAccessToken",
+    "tiktokClientKey",
+    "tiktokClientSecret",
     "nowPlayingBinary"
 ];
 

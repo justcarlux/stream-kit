@@ -1,7 +1,7 @@
 import { createWriteStream, writeFileSync } from "node:fs";
 import * as path from "node:path";
-import { io } from "../app";
-import { stringifyAny } from "./string-related";
+import { io } from "../overlay/app";
+import { stringifyAny } from "../overlay/util/string-related";
 
 import DraftLog from "draftlog";
 DraftLog(console);

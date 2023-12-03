@@ -1,7 +1,7 @@
 import { exec } from "node:child_process";
 import { io } from "../app";
-import * as config from "../util/config";
-import * as logger from "../util/logger";
+import * as config from "../../util/config";
+import * as logger from "../../util/logger";
 
 let currentSong = "null";
 export async function initializeListener() {
