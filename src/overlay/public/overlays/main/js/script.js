@@ -52,7 +52,6 @@ socket.onTwitchFollowers(followers => {
 });
 
 socket.onYouTubeSubscribers(subscribers => {
-    console.log(subscribers);
     youtubeSubscribersSection.count.textContent = subscribers +
     (parameters.get("subscribersGoal") ? ` / ${parameters.get("subscribersGoal")}` : "");
 });
