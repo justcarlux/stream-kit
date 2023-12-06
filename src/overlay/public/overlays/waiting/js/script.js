@@ -11,6 +11,7 @@ import * as socket from "../../js/socket.js";
  * @prop { string } difficultyKey
  */
 
+const topInfoContainer = document.querySelector("section#top-info");
 const spotifySongSection = {
     container: document.querySelector("#spotify-song"),
     name: document.querySelector("#spotify-song #name")
@@ -19,6 +20,11 @@ const twitchFollowersSection = {
     container: document.querySelector("#twitch-followers"),
     count: document.querySelector("#twitch-followers #count")
 }
+const youtubeSubscribersSection = {
+    container: document.querySelector("#youtube-subscribers"),
+    count: document.querySelector("#youtube-subscribers #count")
+}
+const bottomInfoContainer = document.querySelector("section#bottom-info");
 const extraTextSection = {
     container: document.querySelector("#extra-text"),
     main: document.querySelector("#extra-text #main"),
@@ -42,24 +48,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     await wait(200);
     
-    if (parameters.has("mainText")) {
+    if (parameters.get("mainText")) {
         extraTextSection.main.textContent = parameters.get("mainText");
     }
-    if (parameters.has("secondaryText")) {
+    if (parameters.get("secondaryText")) {
         extraTextSection.secondary.textContent = parameters.get("secondaryText");
     }
-    extraTextSection.container.classList.add("show");
+    if (!bottomInfoContainer.textContent.trim()) {
+        bottomInfoContainer.style.display = "none";
+    }
+    bottomInfoContainer.classList.add("show");
+
+    const fields = parameters.get("fields") ? parameters.get("fields").split(",") : [];
+    if (fields.includes("spotifysong")) {
+        spotifySongSection.container.style.display = "flex";
+    }
+    if (fields.includes("twitchfollowers")) {
+        twitchFollowersSection.container.style.display = "flex";
+    }
+    if (fields.includes("ytsubcount")) {
+        youtubeSubscribersSection.container.style.display = "flex";
+    }
 
     const {
         spotifyCurrentSong,
-        twitchFollowers
+        twitchFollowers,
+        youtubeSubscribers
     } = await fetchFundamentals();
 
     spotifySongSection.name.textContent = spotifyCurrentSong;
-    spotifySongSection.container.classList.add("show");
-    
     twitchFollowersSection.count.textContent = twitchFollowers;
-    twitchFollowersSection.container.classList.add("show");
+    youtubeSubscribersSection.count.textContent = youtubeSubscribers;
+    topInfoContainer.classList.add("show");
     
 });
 
@@ -68,7 +88,11 @@ socket.onSpotifySong(song => {
 });
 
 socket.onTwitchFollowers(followers => {
-    if (followers === null) return;
     twitchFollowersSection.count.textContent = followers +
-    (parameters.has("followersGoal") ? ` / ${parameters.get("followersGoal")}` : "");
+    (parameters.get("followersGoal") ? ` / ${parameters.get("followersGoal")}` : "");
+});
+
+socket.onYouTubeSubscribers(subscribers => {
+    youtubeSubscribersSection.count.textContent = subscribers +
+    (parameters.get("subscribersGoal") ? ` / ${parameters.get("subscribersGoal")}` : "");
 });

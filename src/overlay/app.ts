@@ -8,9 +8,9 @@ import * as config from "../util/config";
 import exceptionCatchers from "./util/exception-catchers";
 import * as spotify from "./util/spotify";
 import * as twitch from "./util/twitch";
-import * as tiktok from "./util/tiktok";
+import * as youtube from "./util/youtube";
 import * as logger from "../util/logger";
-import { getPrivateAddress } from "./util/get-private-address";
+import getPrivateAddress from "./util/get-private-address";
 
 export const app = express()
 .set("public", path.join(require.main?.path as string, "overlay", "public"))
@@ -44,8 +44,10 @@ export async function initialize() {
     exceptionCatchers();
     await spotify.initializeListener();
     await twitch.requestLogin();
-    // await tiktok.requestLogin();
+    await youtube.requestLogin();
     twitch.initializeInterval();
+    youtube.initializeInterval();
+    
     app.set("logged-in", true);
     
     const privateAddress = getPrivateAddress();

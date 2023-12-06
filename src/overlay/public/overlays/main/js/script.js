@@ -2,6 +2,7 @@ import * as socket from "../../js/socket.js";
 import { fetchFundamentals } from "../../js/fundamentals.js";
 import { parameters } from "../../../js/helpers.js";
 
+const topInfoContainer = document.querySelector("section#top-info");
 const spotifySongSection = {
     container: document.querySelector("#spotify-song"),
     name: document.querySelector("#spotify-song #name")
@@ -10,19 +11,34 @@ const twitchFollowersSection = {
     container: document.querySelector("#twitch-followers"),
     count: document.querySelector("#twitch-followers #count")
 }
+const youtubeSubscribersSection = {
+    container: document.querySelector("#youtube-subscribers"),
+    count: document.querySelector("#youtube-subscribers #count")
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    const fields = parameters.get("fields") ? parameters.get("fields").split(",") : [];
+    if (fields.includes("spotifysong")) {
+        spotifySongSection.container.style.display = "flex";
+    }
+    if (fields.includes("twitchfollowers")) {
+        twitchFollowersSection.container.style.display = "flex";
+    }
+    if (fields.includes("ytsubcount")) {
+        youtubeSubscribersSection.container.style.display = "flex";
+    }
+
     const {
         spotifyCurrentSong,
-        twitchFollowers
+        twitchFollowers,
+        youtubeSubscribers
     } = await fetchFundamentals();
 
     spotifySongSection.name.textContent = spotifyCurrentSong;
-    spotifySongSection.container.classList.add("show");
-    
     twitchFollowersSection.count.textContent = twitchFollowers;
-    twitchFollowersSection.container.classList.add("show");
+    youtubeSubscribersSection.count.textContent = youtubeSubscribers;
+    topInfoContainer.classList.add("show");
 
 });
 
@@ -31,7 +47,12 @@ socket.onSpotifySong(song => {
 });
 
 socket.onTwitchFollowers(followers => {
-    if (followers === null) return;
     twitchFollowersSection.count.textContent = followers +
-    (parameters.has("followersGoal") ? ` / ${parameters.get("followersGoal")}` : "");
+    (parameters.get("followersGoal") ? ` / ${parameters.get("followersGoal")}` : "");
+});
+
+socket.onYouTubeSubscribers(subscribers => {
+    console.log(subscribers);
+    youtubeSubscribersSection.count.textContent = subscribers +
+    (parameters.get("subscribersGoal") ? ` / ${parameters.get("subscribersGoal")}` : "");
 });

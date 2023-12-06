@@ -14,7 +14,7 @@ const fundamentals = [
     },
 
     /**
-     * @returns { Promise<{ twitchFollowers: number | null }> }
+     * @returns { Promise<{ twitchFollowers: string }> }
      */
     async () => {
         /**
@@ -23,10 +23,25 @@ const fundamentals = [
         const { followers } = await quickFetch("/api/twitch/followers", {
             parse: "json"
         });
-        if (followers === null) return { twitchFollowers: null };
         return {
             twitchFollowers: followers + 
-            (parameters.has("followersGoal") ? ` / ${parameters.get("followersGoal")}` : "")
+            (parameters.get("followersGoal") ? ` / ${parameters.get("followersGoal")}` : "")
+        }
+    },
+
+    /**
+     * @returns { Promise<{ youtubeSubscribers: string }> }
+     */
+    async () => {
+        /**
+         * @type { { subscribers: number } }
+         */
+        const { subscribers } = await quickFetch("/api/youtube/subscribers", {
+            parse: "json"
+        });
+        return {
+            youtubeSubscribers: subscribers + 
+            (parameters.get("subscribersGoal") ? ` / ${parameters.get("subscribersGoal")}` : "")
         }
     }
 
@@ -35,7 +50,8 @@ const fundamentals = [
 /**
  * @returns { {
  *  spotifyCurrentSong: string,
- *  twitchFollowers: number | null
+ *  twitchFollowers: string,
+ *  youtubeSubscribers: string
  * } }
  */
 export async function fetchFundamentals() {

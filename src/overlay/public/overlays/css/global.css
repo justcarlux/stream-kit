@@ -18,32 +18,28 @@ div, span {
 
 /* Top area with current Spotify song and Twitch followers */
 
+#top-info {
+    opacity: 0;
+    padding-top: 20px;
+}
+
 #top-info section, #bottom-info section {
-    padding: 20px;
+    padding: 0 20px 20px 20px;
 }
 
-#top-info section:last-child {
-    padding-top: 0;
-}
-
-#spotify-song, #twitch-followers {
-    display: flex;
+#spotify-song, #twitch-followers, #youtube-subscribers {
+    display: none;
     align-items: center;
 }
 
-#spotify-song img, #twitch-followers img {
+#spotify-song img, #twitch-followers img, #youtube-subscribers img {
     width: 40px;
     filter: drop-shadow(0px 0px 10px #000000cc);
 }
 
-#spotify-song #name, #twitch-followers #count {
+#spotify-song #name, #twitch-followers #count, #youtube-subscribers #count {
     margin-left: 10px;
 }
-
-#spotify-song, #twitch-followers {
-    opacity: 0;
-}
-
 
 /* JS Helpers */
 

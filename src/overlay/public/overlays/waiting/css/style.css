@@ -9,31 +9,16 @@ video {
     z-index: -1;
 }
 
-#level-info {
-    display: flex;
-    align-items: center;
-    opacity: 0;
-}
-
 #top-info, #bottom-info {
     background-color: #00000082;
 }
 
-#level-info #text-container {
-    margin-left: 10px;
-}
-
-#level-info img {
-    height: 100px;
-    filter: drop-shadow(0px 0px 10px #000000cc);
-}
-
 #bottom-info {
-    /* display: grid; */
-    /* grid-template-columns: 1fr 1fr; */
     position: fixed;
     bottom: 0;
     width: 100%;
+    opacity: 0;
+    padding-top: 20px;
 }
 
 #extra-text {

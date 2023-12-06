@@ -6,7 +6,6 @@ import { RefreshingAuthProvider, exchangeCode } from '@twurple/auth';
 import { ApiClient, HelixUser } from "@twurple/api";
 import { io } from "../app";
 import { EventSubWsListener } from "@twurple/eventsub-ws";
-import { spawn } from "node:child_process";
 
 export const credentials = new TwitchCredentialsHolder();
 const oAuthBaseURL = "https://id.twitch.tv/oauth2";
@@ -42,16 +41,21 @@ export async function authenticate(code: string) {
         io.sockets.emit("twitch-followers", (followersCache as number) + 1);
     });
     credentials.user = await credentials.api.users.getUserById(userId) as HelixUser;
+    followersCache = (await credentials.user.getChannelFollowers()).total;
 
 }
 
-let followersCache: number | null = null;
+let followersCache: number;
 export async function getFollowers() {
     let followers: number | null = null;
     try {
         followers = (await credentials.user.getChannelFollowers()).total;
+        if (followers === null || followers === undefined) {
+            return followersCache;
+        }
     } catch (err) {
         logger.run(err, { color: "red" });
+        return followersCache;
     }
     followersCache = followers;
     return followers;
@@ -75,11 +79,10 @@ export async function requestLogin() {
         `(1/2) Log-in to Twitch: ${url}`,
         { color: "yellow" }, true
     )
-    spawn(`start ${url}`, { shell: true, windowsHide: true });
     return await new Promise<void>(resolve => {
         credentials.once("provided", () => {
             logger.run(
-                `(1/2) Log-in to Twitch: Success -> Account: ${credentials.user.name}`,
+                `(1/2) Log-in to Twitch: Success -> Account: ${credentials.user.displayName}`,
                 { logFunction: draft, color: "green" }
             )
             resolve();

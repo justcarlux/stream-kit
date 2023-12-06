@@ -1,5 +1,5 @@
 import { ApiClient, HelixUser } from '@twurple/api';
-import { TypedEventEmitter, EventData } from "./BasicTypedEventEmitter";
+import { TypedEventEmitter, EventData } from "./TypedEventEmitter";
 import { EventSubWsListener } from "@twurple/eventsub-ws";
 
 export interface TwitchCredentialHolderEvents extends EventData {

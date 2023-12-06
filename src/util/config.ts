@@ -8,9 +8,10 @@ export interface IConfiguration {
     twitchClientSecret?: string,
     twitchBotUsername?: string,
     twitchBotAccessToken?: string,
-    tiktokClientKey?: string,
-    tiktokClientSecret?: string,
+    googleClientId?: string,
+    googleClientSecret?: string,
     twitchInterval?: number,
+    youtubeInterval?: number,
     nowPlayingBinary?: string
 }
 
@@ -18,15 +19,14 @@ const required: (keyof IConfiguration)[] = [
     "port",
     "twitchClientId",
     "twitchClientSecret",
-    "twitchBotUsername",
-    "twitchBotAccessToken",
-    "tiktokClientKey",
-    "tiktokClientSecret",
+    "googleClientId",
+    "googleClientSecret",
     "nowPlayingBinary"
 ];
 
 const defaults: IConfiguration = {
-    twitchInterval: 90_000
+    twitchInterval: 90_000,
+    youtubeInterval: 15_000
 }
 
 const filePath = path.join(process.cwd(), "config.json");

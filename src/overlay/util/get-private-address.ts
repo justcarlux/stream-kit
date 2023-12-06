@@ -1,6 +1,6 @@
 import os from "node:os";
 
-export function getPrivateAddress() {
+export default function getPrivateAddress() {
     const interfaces = os.networkInterfaces();
     return Object.keys(interfaces)
     .map(key => {
